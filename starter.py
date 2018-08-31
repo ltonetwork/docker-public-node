@@ -52,7 +52,7 @@ def get_wallet_data():
     base58_provided = False
     if seed_base58 is not None:
         try:
-            base58.b58decode_check(seed_base58)
+            base58.b58decode(seed_base58.encode())
             base58_provided = True
         except:
             seed_base58 = base58.b58encode(seed.encode())

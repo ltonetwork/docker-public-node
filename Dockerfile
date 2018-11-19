@@ -5,7 +5,7 @@ ENV LTO_CONFIG_FILE="/lto/configs/lto-config.conf"
 
 # Install python
 RUN apt-get update -y && apt-get install -y python3 \
-    python3-pip \
+    python3-pip curl \
   && ln -s /usr/bin/python3 python \
   && pip3 install --upgrade pip
 

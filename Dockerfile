@@ -9,7 +9,7 @@ RUN apt-get update -y && apt-get install -y python3 \
   && ln -s /usr/bin/python3 python \
   && pip3 install --upgrade pip
 
-RUN pip3 install requests pyhocon pywaves tqdm
+RUN pip3 install requests pyhocon pywaves==0.8.19 tqdm
 
 COPY starter.py /lto-node/
 COPY entrypoint.sh /lto-node/

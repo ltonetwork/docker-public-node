@@ -96,6 +96,11 @@ if __name__ == "__main__":
     nested_set(env_dict, ['lto', 'wallet', 'password'], lto_data[1])
     nested_set(env_dict, ['lto', 'rest-api', 'api-key-hash'], api_key_hash)
 
+    ENABLE_REST_API = os.environ.get('ENABLE_REST_API', 'false')
+    if ENABLE_REST_API.lower() in ['yes', 'true', 't', '1', 'on']:
+        nested_set(env_dict, ['lto', 'rest-api', 'enable'], 'yes')
+        nested_set(env_dict, ['lto', 'rest-api', 'bind-address'], '0.0.0.0')
+
     LTO_NODE_NAME = os.getenv('LTO_NODE_NAME')
     if LTO_NODE_NAME is not None:
         nested_set(env_dict, ['lto', 'network', 'node-name'], LTO_NODE_NAME)

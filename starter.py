@@ -71,7 +71,7 @@ def secureHash(message):
 
 if __name__ == "__main__":
     if NETWORK is None or NETWORK not in network_names:
-        NETWORK = 'TESTNET'
+        NETWORK = 'MAINNET'
 
     create_configs_dir()
 

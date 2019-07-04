@@ -47,7 +47,7 @@ def parse_env_variables():
 
 
 def get_wallet_data():
-    seed = os.environ.get('LTO_WALLET_SEED', pw.Address().seed)
+    seed = os.environ.get('LTO_WALLET_SEED')
     seed_base58 = os.environ.get('LTO_WALLET_SEED_BASE58')
     base58_provided = False
     if seed_base58 is not None:
@@ -57,11 +57,13 @@ def get_wallet_data():
         except:
             seed_base58 = base58.b58encode(seed.encode())
     else:
+        if seed is None:
+            seed = pw.Address().seed
+            print('Seed phrase:', seed)
         seed_base58 = base58.b58encode(seed.encode())
     password = os.environ.get('LTO_WALLET_PASSWORD', generate_password())
-    if base58_provided is False:
-        print('Seed phrase:', seed)
-    print('Wallet password:', password)
+    if os.environ.get('LTO_WALLET_PASSWORD') is None:
+        print('Wallet password:', password)
     return seed_base58, password
 
 def secureHash(message):
@@ -108,6 +110,10 @@ if __name__ == "__main__":
     LTO_DECLARED_ADDRESS = os.getenv('LTO_DECLARED_ADDRESS')
     if LTO_DECLARED_ADDRESS is not None:
         nested_set(env_dict, ['lto', 'network', 'declared-address'], LTO_DECLARED_ADDRESS)
+
+    LTO_FEATURES = os.getenv('LTO_FEATURES')
+    if LTO_FEATURES is not None:
+        nested_set(env_dict, ['lto', 'features', 'supported'], LTO_FEATURES.split(','))
 
     config = ConfigFactory.from_dict(env_dict)
     local_conf = HOCONConverter.convert(config, 'hocon')

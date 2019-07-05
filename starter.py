@@ -49,11 +49,9 @@ def parse_env_variables():
 def get_wallet_data():
     seed = os.environ.get('LTO_WALLET_SEED')
     seed_base58 = os.environ.get('LTO_WALLET_SEED_BASE58')
-    base58_provided = False
     if seed_base58 is not None:
         try:
             base58.b58decode(seed_base58.encode())
-            base58_provided = True
         except:
             seed_base58 = base58.b58encode(seed.encode())
     else:
@@ -82,15 +80,19 @@ if __name__ == "__main__":
     elif NETWORK == 'TESTNET':
         copyfile('/lto-node/lto-testnet.conf', '/lto/configs/lto-config.conf')
 
-    if os.path.isfile('/lto/configs/local.conf'):
-        print('config file already created')
-        sys.exit(0)
-
     api_key = os.environ.get('LTO_API_KEY', 'lt1secretapikey!')
     api_key_hash = secureHash(api_key)
 
     env_dict = parse_env_variables()
     lto_data = get_wallet_data()
+
+    confFilePath = '/lto/configs/local.conf'
+
+    if os.path.isfile(confFilePath):
+        conf = ConfigFactory.parse_file(confFilePath)
+        if conf.get('lto.wallet.seed') != lto_data[0] or conf.get('lto.wallet.password') != lto_data[1]:
+            print('The wallet seed or password has changed. You will need create a new container to change the configuration.')
+            sys.exit(0)
 
     nested_set(env_dict, ['lto', 'directory'], '/lto')
     nested_set(env_dict, ['lto', 'data-directory'], '/lto/data')
@@ -117,5 +119,5 @@ if __name__ == "__main__":
 
     config = ConfigFactory.from_dict(env_dict)
     local_conf = HOCONConverter.convert(config, 'hocon')
-    with open('/lto/configs/local.conf', 'w') as file:
+    with open(confFilePath, 'w') as file:
         file.write(local_conf)

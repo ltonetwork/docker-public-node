@@ -32,5 +32,6 @@ docker run -p 6869:6869 -e LTO_NETWORK=TESTNET -e LTO_HEAP_SIZE=2g -v YOUR_LOCAL
 |`LTO_DECLARED_ADDRESS`     |String with IP address and port to send as external address during handshake. Could be set automatically if UPnP is enabled. If `declared-address` is set, which is the common scenario for nodes running in the cloud, the node will just listen to incoming connections on `bind-address:port` and broadcast its `declared-address` to its peers.|
 |`LTO_NODE_NAME`            |Node name used in the handshake when connecting to other nodes|
 |`LTO_ENABLE_REST_API`      |To enable the REST API. (For `MAINNET` default is `false` for `TESTNET` default is `true`|
+|`LTO_FEATURES`             |Features you wish to vote. E.g. set to 4 to start voting for the Smart Accounts feature. You can also vote for multiple features at by comma seperating them (e.g. 4,5)|
 
 **Note: All variables are optional.**  

@@ -1,15 +1,16 @@
-FROM openjdk:8-jre-slim
+FROM registry.access.redhat.com/ubi7/python-36:latest
+USER root
+
+# Update image & install openjdk 1.8
+RUN yum update --disableplugin=subscription-manager -y && rm -rf /var/cache/yum
+RUN yum install --disableplugin=subscription-manager java-1.8.0-openjdk-headless.x86_64 -y && rm -rf /var/cache/yum
+
+# Install python
+RUN pip3 install requests pyhocon pywaves==0.8.19 tqdm
+
 ENV LTO_LOG_LEVEL="INFO"
 ENV LTO_HEAP_SIZE="2g"
 ENV LTO_CONFIG_FILE="/lto/configs/lto-config.conf"
-
-# Install python
-RUN apt-get update -y && apt-get install -y python3 \
-    python3-pip curl \
-  && ln -s /usr/bin/python3 python \
-  && pip3 install --upgrade pip
-
-RUN pip3 install requests pyhocon pywaves==0.8.19 tqdm
 
 COPY starter.py /lto-node/
 COPY entrypoint.sh /lto-node/

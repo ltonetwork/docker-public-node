@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:11-jre-slim
 ENV LTO_LOG_LEVEL="INFO"
 ENV LTO_HEAP_SIZE="2g"
 ENV LTO_CONFIG_FILE="/lto/configs/lto-config.conf"

@@ -4,17 +4,17 @@
 
 The simplest way to run a container:
 ```
-docker run -it legalthings/public-node
+docker run -it ltonetwork/public-node
 ```
 
 **For MAINNET:**
 ```
-docker run -p 6869:6869 -e LTO_HEAP_SIZE=2g -e LTO_ENABLE_REST_API -v YOUR_LOCAL_PATH_HERE:/lto legalthings/public-node    
+docker run -p 6869:6869 -e LTO_HEAP_SIZE=2g -e LTO_ENABLE_REST_API -v YOUR_LOCAL_PATH_HERE:/lto ltonetwork/public-node    
 ``` 
 
 **For TESTNET:**
 ```
-docker run -p 6869:6869 -e LTO_NETWORK=TESTNET -e LTO_HEAP_SIZE=2g -v YOUR_LOCAL_PATH_HERE:/lto legalthings/public-node    
+docker run -p 6869:6869 -e LTO_NETWORK=TESTNET -e LTO_HEAP_SIZE=2g -v YOUR_LOCAL_PATH_HERE:/lto ltonetwork/public-node    
 ``` 
 
 **You can run container with predefined environment variables:**

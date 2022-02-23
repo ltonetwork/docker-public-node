@@ -1,5 +1,6 @@
 **The Docker image is build directly from [ltonetwork/lto-public-chain](https://github.com/ltonetwork/lto-public-chain). This repository is no longer in use.**
 
+---
 
 # LTO Public Node in Docker
 
